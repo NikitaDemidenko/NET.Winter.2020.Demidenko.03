@@ -50,10 +50,10 @@ namespace NumbersExtensions
             int numberSourceCopy = numberSource;
             numberSource >>= leftIndex + 1;
             numberSource <<= leftIndex + 1;
-            int multiplierForZeroingLeftPart = mask >> (31 - rightIndex);
+            int multiplierForZeroingLeftPart = mask >> (MaxValueOfIndex - rightIndex);
             numberSourceCopy &= multiplierForZeroingLeftPart;
             numberSource |= numberSourceCopy;
-            multiplierForZeroingLeftPart = mask >> (31 - (leftIndex - rightIndex + 1));
+            multiplierForZeroingLeftPart = mask >> (MaxValueOfIndex - (leftIndex - rightIndex + 1));
             numberIn &= multiplierForZeroingLeftPart;
             numberIn <<= rightIndex;
             return numberSource | numberIn;

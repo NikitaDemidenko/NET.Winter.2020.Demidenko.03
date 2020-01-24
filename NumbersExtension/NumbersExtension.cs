@@ -107,10 +107,11 @@ namespace NumbersExtensions
             }
 
             double current = number / 2;
+            double next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
             bool hasFound = false;
             while (!hasFound)
             {
-                double next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
+                next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
                 if (Math.Abs(current - next) < accuracy)
                 {
                     break;

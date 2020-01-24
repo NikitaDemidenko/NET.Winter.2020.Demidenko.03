@@ -76,7 +76,7 @@ namespace NumbersExtensions.Tests
 
         [Test]
         public void FindNthRoot_NegativeNumberAndEvenDegree_ThrowArgumentException() => 
-            Assert.Throws<ArgumentException>(() => FindNthRoot(-14.4, 2, 0.001));
+            Assert.Throws<ArithmeticException>(() => FindNthRoot(-14.4, 2, 0.001));
 
         [Test]
         public void FindNthRoot_N_Is_Zero_ThrowArgumentException() =>

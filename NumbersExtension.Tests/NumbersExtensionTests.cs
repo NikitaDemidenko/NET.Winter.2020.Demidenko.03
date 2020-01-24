@@ -6,6 +6,8 @@ namespace NumbersExtensions.Tests
 {
     public class NumbersExtensionTests
     {
+        #region InsertNumberIntoAnotherTests
+
         [TestCase(2728, 655, 3, 8, ExpectedResult = 2680)]
         [TestCase(554216104, 15, 0, 31, ExpectedResult = 15)]
         [TestCase(-55465467, 345346, 0, 31, ExpectedResult = 345346)]
@@ -28,6 +30,10 @@ namespace NumbersExtensions.Tests
         [Test]
         public void InsertNumberIntoAnother_I_Or_J_OutOfRange_ThrowArgumentOutOfRangeException() =>
             Assert.Throws<ArgumentOutOfRangeException>(() => InsertNumberIntoAnother(12, 2, 0, 32));
+
+        #endregion
+
+        #region IsPalindromeTests
 
         [Test]
         public void IsPalindrome_NumberLessThanZero_ThrowArgumentOutOfRangeException() =>
@@ -63,5 +69,43 @@ namespace NumbersExtensions.Tests
                 IsPalindrome(source);
             }
         }
+
+        #endregion
+
+        #region FindNthRootTests
+
+        [Test]
+        public void FindNthRoot_NegativeNumberAndEvenDegree_ThrowArgumentException() => 
+            Assert.Throws<ArgumentException>(() => FindNthRoot(-14.4, 2, 0.001));
+
+        [Test]
+        public void FindNthRoot_N_Is_Zero_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => FindNthRoot(16, 0, 0.001));
+
+        [Test]
+        public void FindNthRoot_N_LessThanZero_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => FindNthRoot(198, -2, 0.001));
+
+        [Test]
+        public void FindNthRoot_AccuracyOutOfRange_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => FindNthRoot(2048, 11, 1));
+
+        [TestCase(0, 234, 0.00001, 0)]
+        [TestCase(1, 5, 0.0001, 1)]
+        [TestCase(8, 3, 0.0001, 2)]
+        [TestCase(0.001, 3, 0.0001, 0.1)]
+        [TestCase(0.04100625, 4, 0.0001, 0.45)]
+        [TestCase(8, 3, 0.0001, 2)]
+        [TestCase(0.0279936, 7, 0.0001, 0.6)]
+        [TestCase(-0.008, 3, 0.1, -0.2)]
+        [TestCase(0.064, 3, 0.1, 0.4)]
+        [TestCase(0.004241979, 9, 0.00000001, 0.545)]
+        [TestCase(0.00000001, 2, 0.0000001, 0.0001)]
+        public void FindNthRoot_WithAllValidParameters(double number, int n, double accuracy, double result)
+        {
+            Assert.AreEqual(result, FindNthRoot(number, n, accuracy), accuracy);
+        }
+
+        #endregion
     }
 }

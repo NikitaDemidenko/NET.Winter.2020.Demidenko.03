@@ -8,6 +8,7 @@ namespace NumbersExtensions
     {
         private const int MinValueOfIndex = 0;
         private const int MaxValueOfIndex = 31;
+        private const double Epsilon = 0.1;
 
         /// <summary>Inserts the number into another.</summary>
         /// <param name="numberSource">The source number.</param>
@@ -74,6 +75,51 @@ namespace NumbersExtensions
             int firstDigitIndex = 0;
             int lastDigitIndex = numberString.Length - 1;
             return IsPalindromeString(numberString, firstDigitIndex, lastDigitIndex);
+        }
+
+        /// <summary>Finds the Nth root.</summary>
+        /// <param name="number">The number.</param>
+        /// <param name="n">Root index.</param>
+        /// <param name="accuracy">The accuracy.</param>
+        /// <returns>Returns Nth root of given number.</returns>
+        /// <exception cref="ArgumentException">Trown when <em>n </em>is less or equals zero<em>, accuracy </em>is out of range.</exception>
+        /// <exception cref="ArithmeticException">Thrown when root index <em>n</em> is even and <em>number</em> is less than zero.</exception>
+        public static double FindNthRoot(double number, int n, double accuracy)
+        {
+            if (number < 0 && n % 2 == 0)
+            {
+                throw new ArithmeticException($"Number should be greater or equals zero if {n} is even.");
+            }
+
+            if (n <= 0)
+            {
+                throw new ArgumentException($"{nameof(n)} should be positive.");
+            }
+
+            if (accuracy < 0 || accuracy > Epsilon)
+            {
+                throw new ArgumentException($"{nameof(accuracy)} should be in the range [0; {Epsilon}].");
+            }
+
+            if (number == 0.0)
+            {
+                return 0.0;
+            }
+
+            double current = number / 2;
+            bool hasFound = false;
+            while (!hasFound)
+            {
+                double next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
+                if (Math.Abs(current - next) < accuracy)
+                {
+                    break;
+                }
+
+                current = next;
+            }
+
+            return current;
         }
 
         private static bool IsPalindromeString(string numberString, int leftIndex, int rightIndex)

@@ -79,21 +79,21 @@ namespace NumbersExtensions
 
         /// <summary>Finds the Nth root.</summary>
         /// <param name="number">The number.</param>
-        /// <param name="n">Root index.</param>
+        /// <param name="power">Root index.</param>
         /// <param name="accuracy">The accuracy.</param>
         /// <returns>Returns Nth root of given number.</returns>
         /// <exception cref="ArgumentException">Trown when <em>n </em>is less or equals zero<em>, accuracy </em>is out of range.</exception>
         /// <exception cref="ArithmeticException">Thrown when root index <em>n</em> is even and <em>number</em> is less than zero.</exception>
-        public static double FindNthRoot(double number, int n, double accuracy)
+        public static double FindNthRoot(double number, int power, double accuracy)
         {
-            if (number < 0 && n % 2 == 0)
+            if (number < 0 && power % 2 == 0)
             {
-                throw new ArithmeticException($"Number should be greater or equals zero if {n} is even.");
+                throw new ArithmeticException($"Number should be greater or equals zero if {power} is even.");
             }
 
-            if (n <= 0)
+            if (power <= 0)
             {
-                throw new ArgumentException($"{nameof(n)} should be positive.");
+                throw new ArgumentException($"{nameof(power)} should be positive.");
             }
 
             if (accuracy < 0 || accuracy > Epsilon)
@@ -107,11 +107,11 @@ namespace NumbersExtensions
             }
 
             double current = number / 2;
-            double next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
+            double next = (1.0 / power) * (((power - 1) * current) + (number / Math.Pow(current, power - 1)));
             bool hasFound = false;
             while (!hasFound)
             {
-                next = (1.0 / n) * (((n - 1) * current) + (number / Math.Pow(current, n - 1)));
+                next = (1.0 / power) * (((power - 1) * current) + (number / Math.Pow(current, power - 1)));
                 if (Math.Abs(current - next) < accuracy)
                 {
                     break;

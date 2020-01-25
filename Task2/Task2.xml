@@ -40,5 +40,41 @@
             <exception cref="T:System.ArgumentException">Thrown when all numbers are zero or less than two numbers was given.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
         </member>
+        <member name="M:Task2.IntegerExtensions.GetGcdByEuclidean(System.Int32,System.Int32,System.Int64@)">
+            <summary>
+              <para>Gets the GCD of two integer numbers.</para>
+              <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+            </summary>
+            <param name="a">First number.</param>
+            <param name="b">Second number.</param>
+            <param name="time">Method's execution time in ticks.</param>
+            <returns>Returns GCD of two numbers and method's execution time.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when two numbers are zero.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        </member>
+        <member name="M:Task2.IntegerExtensions.GetGcdByEuclidean(System.Int32,System.Int32,System.Int32,System.Int64@)">
+            <summary>
+              <para>Gets the GCD of three integer numbers.</para>
+              <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+            </summary>
+            <param name="a">First number.</param>
+            <param name="b">Second number.</param>
+            <param name="c">Third number.</param>
+            <param name="time">Method's execution time in ticks.</param>
+            <returns>Returns GCD of three numbers and method's execution time.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when three numbers are zero.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        </member>
+        <member name="M:Task2.IntegerExtensions.GetGcdByEuclidean(System.Int64@,System.Int32[])">
+            <summary>
+              <para>Gets the GCD of several integer numbers.</para>
+              <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+            </summary>
+            <param name="time">Method's execution time in ticks.</param>
+            <param name="numbers">Given numbers.</param>
+            <returns>Returns GCD of several numbers and method's execution time.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when all numbers are zero or less than two numbers was given.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        </member>
     </members>
 </doc>

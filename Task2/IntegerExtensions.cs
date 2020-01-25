@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Task2
 {
@@ -115,6 +116,66 @@ namespace Task2
             }
 
             return gcdsArray[gcdsArray.Count - 1];
+        }
+
+        /// <summary>
+        ///   <para>Gets the GCD of two integer numbers.</para>
+        ///   <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+        /// </summary>
+        /// <param name="a">First number.</param>
+        /// <param name="b">Second number.</param>
+        /// <param name="time">Method's execution time in ticks.</param>
+        /// <returns>Returns GCD of two numbers and method's execution time.</returns>
+        /// <exception cref="ArgumentException">Thrown when two numbers are zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        public static int GetGcdByEuclidean(int a, int b, out long time)
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+            int result = GetGcdByEuclidean(a, b);
+            timer.Stop();
+            time = timer.ElapsedTicks;
+            return result;
+        }
+
+        /// <summary>
+        ///   <para>Gets the GCD of three integer numbers.</para>
+        ///   <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+        /// </summary>
+        /// <param name="a">First number.</param>
+        /// <param name="b">Second number.</param>
+        /// <param name="c">Third number.</param>
+        /// <param name="time">Method's execution time in ticks.</param>
+        /// <returns>Returns GCD of three numbers and method's execution time.</returns>
+        /// <exception cref="ArgumentException">Thrown when three numbers are zero.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        public static int GetGcdByEuclidean(int a, int b, int c, out long time)
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+            int result = GetGcdByEuclidean(a, b, c);
+            timer.Stop();
+            time = timer.ElapsedTicks;
+            return result;
+        }
+
+        /// <summary>
+        ///   <para>Gets the GCD of several integer numbers.</para>
+        ///   <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+        /// </summary>
+        /// <param name="time">Method's execution time in ticks.</param>
+        /// <param name="numbers">Given numbers.</param>
+        /// <returns>Returns GCD of several numbers and method's execution time.</returns>
+        /// <exception cref="ArgumentException">Thrown when all numbers are zero or less than two numbers was given.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        public static int GetGcdByEuclidean(out long time, params int[] numbers)
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+            int result = GetGcdByEuclidean(numbers);
+            timer.Stop();
+            time = timer.ElapsedTicks;
+            return result;
         }
 
         private static int EuclideanAlgorithm(int absA, int absB)

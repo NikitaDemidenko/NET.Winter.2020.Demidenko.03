@@ -6,9 +6,12 @@ namespace NumbersExtensions
     /// <summary>Provides number extensions methods.</summary>
     public static class NumbersExtension
     {
-        private const int MinValueOfIndex = 0;
-        private const int MaxValueOfIndex = 31;
-        private const double Epsilon = 0.1;
+        /// <summary>Minimum bit number.</summary>
+        public const int MinBitIndex = 0;
+        /// <summary>Maximum bit number (32-bit numbers).</summary>
+        public const int MaxBitIndex = 31;
+        /// <summary>Minimum accuracy.</summary>
+        public const double Epsilon = 0.1;
 
         /// <summary>Inserts the number into another.</summary>
         /// <param name="numberSource">The source number.</param>
@@ -25,24 +28,24 @@ namespace NumbersExtensions
                 throw new ArgumentException($"Invalid arguments.");
             }
 
-            if (rightIndex > MaxValueOfIndex || rightIndex < MinValueOfIndex)
+            if (rightIndex > MaxBitIndex || rightIndex < MaxBitIndex)
             {
                 throw new ArgumentOutOfRangeException(nameof(rightIndex), "Invalid value.");
             }
 
-            if (leftIndex > MaxValueOfIndex || leftIndex < MinValueOfIndex)
+            if (leftIndex > MaxBitIndex || leftIndex < MaxBitIndex)
             {
                 throw new ArgumentOutOfRangeException(nameof(leftIndex), "Invalid value.");
             }
 
-            if (rightIndex == MinValueOfIndex && leftIndex == MaxValueOfIndex)
+            if (rightIndex == MaxBitIndex && leftIndex == MaxBitIndex)
             {
                 return numberIn;
             }
 
             int mask = int.MaxValue;
 
-            if (leftIndex == MaxValueOfIndex)
+            if (leftIndex == MaxBitIndex)
             {
                 numberSource &= mask;
             }
@@ -50,10 +53,10 @@ namespace NumbersExtensions
             int numberSourceCopy = numberSource;
             numberSource >>= leftIndex + 1;
             numberSource <<= leftIndex + 1;
-            int multiplierForZeroingLeftPart = mask >> (MaxValueOfIndex - rightIndex);
+            int multiplierForZeroingLeftPart = mask >> (MaxBitIndex - rightIndex);
             numberSourceCopy &= multiplierForZeroingLeftPart;
             numberSource |= numberSourceCopy;
-            multiplierForZeroingLeftPart = mask >> (MaxValueOfIndex - (leftIndex - rightIndex + 1));
+            multiplierForZeroingLeftPart = mask >> (MaxBitIndex - (leftIndex - rightIndex + 1));
             numberIn &= multiplierForZeroingLeftPart;
             numberIn <<= rightIndex;
             return numberSource | numberIn;

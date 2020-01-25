@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Task2</name>
+    </assembly>
+    <members>
+        <member name="T:Task2.IntegerExtensions">
+            <summary>Provides methods for integer extensions.</summary>
+        </member>
+        <member name="M:Task2.IntegerExtensions.GetGcd(System.Int32,System.Int32)">
+            <summary>
+              <para>Gets the GCD of two integer numbers.</para>
+              <para>Valid interval (<em>int.MinValue, int.MaxValue</em>].</para>
+            </summary>
+            <param name="a">First number.</param>
+            <param name="b">Second number.</param>
+            <returns>Returns GCD of two numbers.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when two numbers are zero.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
+        </member>
+    </members>
+</doc>

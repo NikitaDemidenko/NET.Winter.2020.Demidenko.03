@@ -73,6 +73,11 @@ namespace Task2
         /// <exception cref="ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
         public static int GetGcdByEuclidean(params int[] numbers)
         {
+            if (numbers == null)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
             if (numbers.Length < 2)
             {
                 throw new ArgumentException("There are should be at least two parameters.");
@@ -104,7 +109,6 @@ namespace Task2
                 throw new ArgumentException("All numbers cannot be 0 at the same time.");
             }
 
-            //gcdsArray.Sort();
             for (int i = 0; i < gcdsArray.Count - 1; i++)
             {
                 if (gcdsArray[i] == 0)
@@ -244,6 +248,11 @@ namespace Task2
         /// <exception cref="ArgumentOutOfRangeException">Thrown when one argument is equals to <em>int.Minvalue</em>.</exception>
         public static int GetGcdByStein(params int[] numbers)
         {
+            if (numbers == null)
+            {
+                throw new ArgumentNullException(nameof(numbers));
+            }
+
             if (numbers.Length < 2)
             {
                 throw new ArgumentException("There are should be at least two parameters.");

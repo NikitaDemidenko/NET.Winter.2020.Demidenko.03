@@ -6,6 +6,8 @@ using static ArrayManipulation.ArrayExtension;
 
 namespace ArrayManipulation.Tests
 {
+    #region ArrayExtensionTestsDataSource
+
     public class ArrayExtensionTestsDataSource : IEnumerable
     {
         public int[] GetRandomArray(int length)
@@ -15,7 +17,12 @@ namespace ArrayManipulation.Tests
                 throw new ArgumentException("Array cannot be empty.");
             }
 
-            int[] array = Enumerable.Range(0, length - 1).ToArray();
+            int[] array = new int[length];
+            for (int i = 0; i < length; i++)
+            {
+                array[i] = 13;
+            }
+
             return array;
         }
 
@@ -23,9 +30,11 @@ namespace ArrayManipulation.Tests
         {
             yield return GetRandomArray(557576);
             yield return GetRandomArray(1000000);
-            yield return GetRandomArray(20000000);
+            yield return GetRandomArray(100_000_000);
         }
     }
+
+    #endregion
 
     [TestFixture]
     public class ArrayExtensionTests
@@ -38,19 +47,19 @@ namespace ArrayManipulation.Tests
             Assert.Throws<ArgumentNullException>(() => FindBalanceIndex(null));
         }
 
-        [TestCase(new int[] { 1, 2, 5, 8, 0, 2, 4, 6, 4 }, ExpectedResult = 4)]
-        [TestCase(new int[] { -32, 8, 1, 2, 4, 5, 12, -3, 0 }, ExpectedResult = 7)]
-        [TestCase(new int[] { 2, 0, 5, 14, 3 }, ExpectedResult = null)]
         [TestCase(new int[] { }, ExpectedResult = null)]
-        [TestCase(new int[] { 0, 0, 0, 0, 0, 0 }, ExpectedResult = 1)]
-        [TestCase(new int[] { -1, 1, -1, 1, -1, 1, 32 }, ExpectedResult = null)]
         [TestCase(new int[] { 1 }, ExpectedResult = null)]
         [TestCase(new int[] { 1, 2, 1 }, ExpectedResult = 1)]
-        [TestCase(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, ExpectedResult = null)]
         [TestCase(new int[] { -1, 2, 3, 1 }, ExpectedResult = 2)]
-        [TestCase(new int[] { 100, -1, 50, -1, 100 }, ExpectedResult = 2)]
-        [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, ExpectedResult = 5)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, 0 }, ExpectedResult = 1)]
+        [TestCase(new int[] { 2, 0, 5, 14, 3 }, ExpectedResult = null)]
         [TestCase(new int[] { 1, 2, 1, 50000 }, ExpectedResult = null)]
+        [TestCase(new int[] { 100, -1, 50, -1, 100 }, ExpectedResult = 2)]
+        [TestCase(new int[] { 1, 2, 5, 8, 0, 2, 4, 6, 4 }, ExpectedResult = 4)]
+        [TestCase(new int[] { -1, 1, -1, 1, -1, 1, 32 }, ExpectedResult = null)]
+        [TestCase(new int[] { -32, 8, 1, 2, 4, 5, 12, -3, 0 }, ExpectedResult = 7)]
+        [TestCase(new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, ExpectedResult = 5)]
+        [TestCase(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, ExpectedResult = null)]
         [TestCase(new int[] { int.MinValue, int.MinValue, 50, int.MinValue, int.MinValue }, ExpectedResult = 2)]
         public int? FindBalanceIndexTests(int[] array)
         {
@@ -73,12 +82,12 @@ namespace ArrayManipulation.Tests
             Assert.Throws<ArgumentException>((() => FindMaximumItem(new int[] { })));
         }
 
-        [TestCase(new int[] {1, 2, 5, 8, 0, 2, 4, 6, 4}, ExpectedResult = 8)]
-        [TestCase(new int[] {-32, 8, 1, 2, 4, 5, 12, -3, 0}, ExpectedResult = 12)]
+        [TestCase(new int[] { 1 }, ExpectedResult = 1)]
         [TestCase(new int[] {2, 0, 5, 14, 3}, ExpectedResult = 14)]
         [TestCase(new int[] {0, 0, 0, 0, 0, 0}, ExpectedResult = 0)]
         [TestCase(new int[] {-1, 1, -1, 1, -1, 1, 32}, ExpectedResult = 32)]
-        [TestCase(new int[] {1}, ExpectedResult = 1)]
+        [TestCase(new int[] { 1, 2, 5, 8, 0, 2, 4, 6, 4 }, ExpectedResult = 8)]
+        [TestCase(new int[] { -32, 8, 1, 2, 4, 5, 12, -3, 0 }, ExpectedResult = 12)]
         public int FindMaximumItemTests(int[] array)
         {
             return FindMaximumItem(array);
@@ -94,6 +103,59 @@ namespace ArrayManipulation.Tests
 
             Assert.That(actual == expected);
         }
+        #endregion
+
+        #region FilterArrayByKeyTests
+
+        [Test]
+        public void FilterArrayByKey_ArrayIsNull_ThrowArgumentNullException() =>
+            Assert.Throws<ArgumentNullException>(() => FilterArrayByKey(null, 2));
+
+        [Test]
+        public void FilterArrayByKey_ArrayIsEmpty_ThrowArgumentException() =>
+            Assert.Throws<ArgumentException>(() => FilterArrayByKey(new int[0], 7));
+
+        [Test]
+        public void FilterArrayByKey_DigitIs17_ThrowArgumentOutOfRangeException() =>
+            Assert.Throws<ArgumentOutOfRangeException>(() => FilterArrayByKey(new int[] { 1, 2, 45, 14 }, 17));
+
+        [TestCase(new[] { 7, 2, 5, 5, -1, -1, 2 }, 9, ExpectedResult = new int[0])]
+        [TestCase(new[] { 2212332, 1405644, -1236674 }, 0, ExpectedResult = new[] { 1405644 })]
+        [TestCase(new[] { 53, 71, -24, 1001, 32, 1005 }, 2, ExpectedResult = new[] { -24, 32 })]
+        [TestCase(new[] { 27, 102, 15, 0, 34, 0, 0 }, 0, ExpectedResult = new[] { 102, 0, 0, 0 })]
+        [TestCase(new[] { 7, 1, 2, 3, 4, 5, 6, 7, 68, 69, 70, 15, 17 }, 7, ExpectedResult = new[] { 7, 7, 70, 17 })]
+        [TestCase(new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, ExpectedResult = new[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 })]
+        [TestCase(new[] { int.MinValue, int.MaxValue, int.MinValue, 104123531, 36, 0 }, 5, ExpectedResult = new[] { 104123531 })]
+        [TestCase(new[] { -27, 173, 371132, 7556, 7243, 10017 }, 7, ExpectedResult = new[] { -27, 173, 371132, 7556, 7243, 10017 })]
+        public int[] FilterArrayByKey_WithAllValidParameters(int[] array, byte digit)
+        {
+            return FilterArrayByKey(array, digit);
+        }
+
+        [TestCaseSource(typeof(ArrayExtensionTestsDataSource))]
+        public void FilterArrayByKey_BigArray_Case1(int[] array)
+        {
+            int[] expected = new int[0];
+
+            int[] actual = FilterArrayByKey(array, 5);
+
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCaseSource(typeof(ArrayExtensionTestsDataSource))]
+        public void FilterArrayByKey_BigArray_Case2(int[] array)
+        {
+            int[] expected = new int[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                expected[i] = 13;
+            }
+
+            int[] actual = FilterArrayByKey(array, 1);
+
+            Assert.AreEqual(actual, expected);
+        }
+
         #endregion
     }
 }

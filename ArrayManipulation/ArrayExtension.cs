@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace ArrayManipulation
 {
     /// <summary>Provides methods for array extension.</summary>
     public static class ArrayExtension
     {
+        /// <summary>Maximum value of digit.</summary>
+        public const byte MaxValueOfDigit = 9;
+
         /// <summary>Finds the maxIndex of the balance.</summary>
         /// <param name="array">An array.</param>
         /// <returns>Returns maxIndex or <em>null</em> if maxIndex not found.</returns>
@@ -55,6 +60,56 @@ namespace ArrayManipulation
             }
 
             return MaximumItem(array, 0, array.Length - 1);
+        }
+
+        /// <summary>Creates new array that contains only numbers with given digit.</summary>
+        /// <param name="array">An array.</param>
+        /// <param name="digit">Filter digit.</param>
+        /// <returns>Returns new filtered array.</returns>
+        /// <exception cref="System.ArgumentNullException">Thrown when array is null.</exception>
+        /// <exception cref="System.ArgumentException">Thrown when array is empty.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Thrown when <em>digit</em> is out of range.</exception>
+        public static int[] FilterArrayByKey(int[] array, byte digit)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            if (array.Length == 0)
+            {
+                throw new ArgumentException($"{nameof(array)} cannot be empty.");
+            }
+
+            if (digit > MaxValueOfDigit)
+            {
+                throw new ArgumentOutOfRangeException(nameof(digit), $"{nameof(digit)} must be a digit");
+            }
+
+            var resultArray = new List<int>();
+            foreach (int number in array)
+            {
+                if (number == 0 && digit == 0)
+                {
+                    resultArray.Add(number);
+                    continue;
+                }
+
+                int copy = Math.Abs(number);
+                while (copy > 0)
+                {
+                    int remainder = copy % 10;
+                    if (remainder == digit)
+                    {
+                        resultArray.Add(number);
+                        break;
+                    }
+
+                    copy /= 10;
+                }
+            }
+
+            return resultArray.ToArray();
         }
 
         private static int MaximumItem(int[] array, int leftIndex, int rightIndex)

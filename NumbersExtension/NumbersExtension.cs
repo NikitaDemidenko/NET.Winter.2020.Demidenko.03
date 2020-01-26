@@ -8,8 +8,10 @@ namespace NumbersExtensions
     {
         /// <summary>Minimum bit number.</summary>
         public const int MinBitIndex = 0;
+
         /// <summary>Maximum bit number (32-bit numbers).</summary>
         public const int MaxBitIndex = 31;
+
         /// <summary>Minimum accuracy.</summary>
         public const double Epsilon = 0.1;
 
@@ -28,17 +30,17 @@ namespace NumbersExtensions
                 throw new ArgumentException($"Invalid arguments.");
             }
 
-            if (rightIndex > MaxBitIndex || rightIndex < MaxBitIndex)
+            if (rightIndex > MaxBitIndex || rightIndex < MinBitIndex)
             {
                 throw new ArgumentOutOfRangeException(nameof(rightIndex), "Invalid value.");
             }
 
-            if (leftIndex > MaxBitIndex || leftIndex < MaxBitIndex)
+            if (leftIndex > MaxBitIndex || leftIndex < MinBitIndex)
             {
                 throw new ArgumentOutOfRangeException(nameof(leftIndex), "Invalid value.");
             }
 
-            if (rightIndex == MaxBitIndex && leftIndex == MaxBitIndex)
+            if (rightIndex == MinBitIndex && leftIndex == MaxBitIndex)
             {
                 return numberIn;
             }

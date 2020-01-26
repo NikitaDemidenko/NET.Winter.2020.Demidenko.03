@@ -77,13 +77,13 @@ namespace Task2.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => GetGcdByEuclidean(25, int.MinValue));
 
         [Timeout(3000)]
-        [TestCase(0, 1, 0, 0, ExpectedResult = 1)]
-        [TestCase(0, 0, 1, 0, ExpectedResult = 1)]
-        [TestCase(18, 3, 9, 6, ExpectedResult = 3)]
-        [TestCase(-10, 35, 90, 55, -105, ExpectedResult = 5)]
-        [TestCase(12, 21, 91, 17, 0, int.MaxValue, ExpectedResult = 1)]
-        [TestCase(123413, 943578, 123413, 943578, 943578, int.MaxValue, ExpectedResult = 1)]
-        [TestCase(1, 213124, -54654, -123124, 65765, 44444, -7, 1234567, int.MaxValue, ExpectedResult = 1)]
+        [TestCase(0, 1, 0, 0)]
+        [TestCase(0, 0, 1, 0)]
+        [TestCase(18, 3, 9, 6)]
+        [TestCase(-10, 35, 90, 55, -105)]
+        [TestCase(12, 21, 91, 17, 0, int.MaxValue)]
+        [TestCase(123413, 943578, 123413, 943578, 943578, int.MaxValue)]
+        [TestCase(1, 213124, -54654, -123124, 65765, 44444, -7, 1234567, int.MaxValue)]
         public void GcdByEuclideanTests_WithTime(params int[] numbers)
         {
             _ = GetGcdByEuclidean(out long time, numbers);

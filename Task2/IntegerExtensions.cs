@@ -30,7 +30,7 @@ namespace Task2
 
             int absA = Math.Abs(a);
             int absB = Math.Abs(b);
-            return absA >= absB ? EuclideanAlgorithm(absA, absB) : EuclideanAlgorithm(absB, absA);
+            return EuclideanAlgorithm(absA, absB);
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Task2
             int absB = Math.Abs(b);
             int absC = Math.Abs(c);
 
-            int temporaryResult = absA > absB ? EuclideanAlgorithm(absA, absB) : EuclideanAlgorithm(absB, absA);
-            return absC > temporaryResult ? EuclideanAlgorithm(absC, temporaryResult) : EuclideanAlgorithm(temporaryResult, absC);
+            int temporaryResult = EuclideanAlgorithm(absA, absB);
+            return EuclideanAlgorithm(temporaryResult, absC);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Task2
                 throw new ArgumentException("All numbers cannot be 0 at the same time.");
             }
 
-            gcdsArray.Sort();
+            //gcdsArray.Sort();
             for (int i = 0; i < gcdsArray.Count - 1; i++)
             {
                 if (gcdsArray[i] == 0)

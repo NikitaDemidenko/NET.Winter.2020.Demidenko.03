@@ -89,27 +89,26 @@ namespace ArrayManipulation
             var resultArray = new List<int>();
             foreach (int number in array)
             {
-                if (number == 0 && digit == 0)
+                if (HasDigit(number, digit))
                 {
                     resultArray.Add(number);
-                    continue;
-                }
-
-                int copy = Math.Abs(number);
-                while (copy > 0)
-                {
-                    int remainder = copy % 10;
-                    if (remainder == digit)
-                    {
-                        resultArray.Add(number);
-                        break;
-                    }
-
-                    copy /= 10;
                 }
             }
 
             return resultArray.ToArray();
+        }
+
+        private static bool HasDigit(int number, byte digit)
+        {
+            int absNumber = Math.Abs(number);
+            int remainder = absNumber;
+            while (absNumber > 0 && remainder != digit)
+            {
+                remainder = absNumber % 10;
+                absNumber /= 10;
+            }
+
+            return remainder == digit;
         }
 
         private static int MaximumItem(int[] array, int leftIndex, int rightIndex)

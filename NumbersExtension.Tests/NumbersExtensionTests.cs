@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using NUnit.Framework;
 using static NumbersExtensions.NumbersExtension;
 
@@ -6,6 +9,25 @@ namespace NumbersExtensions.Tests
 {
     public class NumbersExtensionTests
     {
+        private static IConfigurationRoot ConfigurationRoot { get; } =
+            new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+        [SetUp]
+        public void Setup()
+        {
+            try
+            {
+                AppSettings.Epsilon = double.Parse(ConfigurationRoot["Epsilon"]);
+            }
+            catch
+            {
+                AppSettings.Epsilon = 0.1;
+            }
+        }
+
         #region InsertNumberIntoAnotherTests
 
         [TestCase(2728, 655, 3, 8, ExpectedResult = 2680)]

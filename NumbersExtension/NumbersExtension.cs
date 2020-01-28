@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using NumbersExtension;
 
 namespace NumbersExtensions
 {
@@ -12,8 +13,15 @@ namespace NumbersExtensions
         /// <summary>Maximum bit number (32-bit numbers).</summary>
         public const int MaxBitIndex = 31;
 
-        /// <summary>Minimum accuracy.</summary>
-        public const double Epsilon = 0.1;
+        public static readonly AppSettings AppSettings;
+
+        static NumbersExtension()
+        {
+            AppSettings = new AppSettings
+            {
+                Epsilon = 0.1,
+            };
+        }
 
         /// <summary>Inserts the number into another.</summary>
         /// <param name="numberSource">The source number.</param>
@@ -101,9 +109,9 @@ namespace NumbersExtensions
                 throw new ArgumentException($"{nameof(power)} should be positive.");
             }
 
-            if (accuracy < 0 || accuracy > Epsilon)
+            if (accuracy < 0 || accuracy > AppSettings.Epsilon)
             {
-                throw new ArgumentException($"{nameof(accuracy)} should be in the range [0; {Epsilon}].");
+                throw new ArgumentException($"{nameof(accuracy)} should be in the range [0; {AppSettings.Epsilon}].");
             }
 
             if (number == 0.0)

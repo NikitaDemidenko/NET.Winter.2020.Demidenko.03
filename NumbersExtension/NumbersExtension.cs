@@ -76,12 +76,11 @@ namespace NumbersExtensions
         /// <param name="number">Number.</param>
         /// <returns>
         ///   <c>true</c> if the specified number is palindrome; otherwise, <c>false</c>.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when number is less than zero.</exception>
         public static bool IsPalindrome(int number)
         {
             if (number < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(number));
+                return false;
             }
 
             string numberString = Convert.ToString(number, CultureInfo.InvariantCulture);
